@@ -3,7 +3,7 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Brain, Cpu, Database, Zap, Bot, TrendingUp, Code, Target } from "lucide-react";
+import { Brain, Cpu, Database, Zap, Bot, TrendingUp, Code, Target, MessageSquare } from "lucide-react";
 
 export const AboutSection = () => {
   const ref = useRef(null);
@@ -12,15 +12,20 @@ export const AboutSection = () => {
   const expertise = [
     { name: "Machine Learning", icon: Brain, color: "text-primary" },
     { name: "Deep Learning", icon: Cpu, color: "text-accent" },
+    { name: "AI Agents", icon: Bot, color: "text-primary" },
+    { name: "MCP Servers", icon: Database, color: "text-accent" },
+    { name: "CrewAI", icon: TrendingUp, color: "text-primary" },
+    { name: "Conversational AI", icon: MessageSquare, color: "text-accent" },
     { name: "Data Science", icon: Database, color: "text-primary" },
     { name: "Python Development", icon: Code, color: "text-accent" },
     { name: "AI Model Deployment", icon: Zap, color: "text-primary" },
   ];
 
   const stats = [
-    { label: "AI Projects", value: "20+", icon: Brain },
+    { label: "AI Projects", value: "25+", icon: Brain },
     { label: "ML Models", value: "50+", icon: Cpu },
-    { label: "Technologies", value: "15+", icon: Zap }
+    { label: "Technologies", value: "25+", icon: Zap },
+    { label: "AI Agents", value: "10+", icon: Bot }
   ];
 
   return (
@@ -129,7 +134,7 @@ export const AboutSection = () => {
 
           {/* Stats Section */}
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-3 gap-6"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 1.0 }}

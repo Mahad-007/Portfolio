@@ -3,7 +3,7 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, MapPin, Brain, Cpu, Bot, TrendingUp, Code, Target } from "lucide-react";
+import { Calendar, MapPin, Brain, Cpu, Bot, TrendingUp, Code, Target, GraduationCap, Briefcase } from "lucide-react";
 
 export const ExperienceSection = () => {
   const ref = useRef(null);
@@ -11,55 +11,91 @@ export const ExperienceSection = () => {
 
   const experiences = [
     {
-      title: "Freelance AI Developer",
-      company: "Independent Consultant",
-      period: "2023 - Present",
-      location: "Remote",
-      description: "Developing cutting-edge AI solutions for clients across various industries, specializing in machine learning models, natural language processing, and computer vision applications.",
-      achievements: [
-        "Built 50+ AI/ML models with 95%+ accuracy for diverse clients",
-        "Developed intelligent trading algorithms using reinforcement learning",
-        "Created advanced NLP systems for sentiment analysis and text generation",
-        "Implemented computer vision solutions for object detection and classification",
-        "Delivered end-to-end AI solutions from concept to production deployment"
-      ],
-      icon: Brain,
-      color: "text-primary",
-      category: "AI Development"
-    },
-    {
-      title: "Creator - Profitron AI Trading Platform",
-      company: "Personal Project",
-      period: "2023 - Present",
-      location: "Remote",
-      description: "Designed and developed an intelligent cryptocurrency trading platform that combines advanced machine learning algorithms with real-time market analysis for automated trading decisions.",
-      achievements: [
-        "Built intelligent trading bot with 85%+ success rate",
-        "Integrated multiple cryptocurrency exchanges via APIs",
-        "Implemented real-time market sentiment analysis using NLP",
-        "Created automated risk management and portfolio optimization",
-        "Developed user-friendly dashboard with live trading metrics"
-      ],
-      icon: TrendingUp,
-      color: "text-accent",
-      category: "AI Trading"
-    },
-    {
-      title: "AI Intern - Vanar Technologies",
-      company: "Vanar Technologies",
+      title: "AI Engineer",
+      company: "Vanar",
       period: "Aug 2025 - Present",
-      location: "Remote",
-      description: "Worked as an AI intern focusing on developing machine learning solutions for enterprise clients, including predictive analytics, recommendation systems, and automated decision-making tools.",
+      location: "Dubai, United Arab Emirates",
+      description: "AI Engineer at Vanar working on myNeutron - AI Second Brain & Search for Chrome, a revolutionary browser extension that serves as personal memory for the internet with AI-powered context management and semantic search capabilities.",
       achievements: [
-        "Developed fraud detection systems with 99.2% accuracy",
-        "Built recommendation engines for e-commerce platforms",
-        "Created automated data preprocessing and feature engineering pipelines",
-        "Implemented MLOps practices for model deployment and monitoring",
-        "Collaborated with senior AI engineers on large-scale ML projects"
+        "Developed AI memory system for Chrome with 4.6/5 rating and 21+ active users",
+        "Built semantic search functionality across Google Drive, Gmail, Dropbox, Slack, and Notion",
+        "Implemented client-side encryption and privacy-first architecture with 256-bit encryption",
+        "Created one-click capture system for articles, emails, chats, and ideas with instant retrieval",
+        "Integrated AI context injection for ChatGPT, Claude, and Gemini to eliminate repetitive explanations",
+        "Developed blockchain preservation system using Vanar blockchain for verifiable Neutron Seeds"
       ],
       icon: Bot,
       color: "text-primary",
-      category: "AI Internship"
+      category: "AI Engineering"
+    },
+    {
+      title: "AI Engineer",
+      company: "Spiral Labs",
+      period: "Jul 2025 - Aug 2025",
+      location: "Lahore, Punjab, Pakistan",
+      description: "Excited to join Spiral Labs as an AI Engineer Intern, where I'm applying my experience in building intelligent systems — from fitness coaches and resume optimization agents to terminal-based assistants and CrewAI-based solutions.",
+      achievements: [
+        "Developed AI Web Researcher using Groq's function calling for intelligent web research",
+        "Created Prompt Optimizer MCP Server deployed on Smithery platform",
+        "Built ResuMatch AI system for resume gap analysis and improvement suggestions",
+        "Implemented advanced AI agents and conversational AI systems",
+        "Delivered production-ready AI solutions with high accuracy and user satisfaction"
+      ],
+      icon: Brain,
+      color: "text-accent",
+      category: "AI Engineering"
+    },
+    {
+      title: "Software Developer",
+      company: "Freelance",
+      period: "Jan 2025 - Aug 2025",
+      location: "Remote",
+      description: "Worked as an independent software developer, delivering custom solutions for various clients. Focused on full-stack development, API integrations, and database management.",
+      achievements: [
+        "Developed custom web applications for multiple clients",
+        "Built RESTful APIs and database solutions",
+        "Implemented responsive frontend designs",
+        "Delivered end-to-end software solutions",
+        "Maintained and optimized existing applications"
+      ],
+      icon: Code,
+      color: "text-green-500",
+      category: "Software Development"
+    },
+    {
+      title: "AI Engineer",
+      company: "Al-Khawarizmi Institute of Computer Science (KICS), UET Lahore",
+      period: "Oct 2024 - Aug 2025",
+      location: "Lahore, Punjab, Pakistan",
+      description: "Thrilled to start my journey as an intern at KICS, UET Lahore in the Center for Language Engineering (CLE). Focusing on exciting projects related to Natural Language Processing (NLP) and Optical Character Recognition (OCR), contributing to advancements in language technology.",
+      achievements: [
+        "Developed and optimized Urdu OCR model for improved text recognition accuracy",
+        "Contributed to NLP research projects in language processing and understanding",
+        "Worked on advanced OCR techniques for multilingual text recognition",
+        "Collaborated with research team on language technology innovations",
+        "Applied machine learning algorithms for text processing and analysis",
+        "Contributed to academic research in computational linguistics"
+      ],
+      icon: GraduationCap,
+      color: "text-blue-500",
+      category: "Research & Development"
+    },
+    {
+      title: "Summer Intern - ML/Advanced Programming",
+      company: "National Vocational and Technical Training Commission NAVTTC",
+      period: "Jul 2024 - Oct 2024",
+      location: "Lahore, Punjab, Pakistan",
+      description: "Completed intensive summer internship program in Machine Learning and Advanced Programming, focusing on practical implementation of ML algorithms, data analysis, and advanced programming techniques. Achieved A+ grade for exceptional performance.",
+      achievements: [
+        "Completed ML/Advanced Programming course with A+ grade",
+        "Gained hands-on experience in machine learning algorithms and data analysis",
+        "Developed practical projects using advanced programming techniques",
+        "Mastered data preprocessing, model training, and evaluation methodologies",
+        "Applied statistical analysis and visualization techniques to real-world datasets"
+      ],
+      icon: GraduationCap,
+      color: "text-orange-500",
+      category: "ML Training"
     }
   ];
 

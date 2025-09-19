@@ -538,23 +538,27 @@ export const HeroSection = () => {
           >
             <span className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-primary"></div>
+              AI Agents
+            </span>
+            <span className="flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-accent"></div>
               Machine Learning
             </span>
             <span className="flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-primary"></div>
+              MCP Servers
+            </span>
+            <span className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-accent"></div>
-              Deep Learning
+              Conversational AI
             </span>
             <span className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-primary"></div>
-              AI-Powered Systems
+              CrewAI
             </span>
             <span className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-accent"></div>
-              Generative AI
-            </span>
-            <span className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-accent"></div>
-              Data Science & Analytics
+              Next.js & Supabase
             </span>
             
           </motion.div>

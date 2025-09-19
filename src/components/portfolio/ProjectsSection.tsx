@@ -27,41 +27,45 @@ export const ProjectsSection = () => {
 
   const projects = [
     {
-      title: "AI Trading Bot",
-      description: "Intelligent cryptocurrency trading bot with advanced ML algorithms for market prediction, real-time analysis, and automated trading using Binance API integration.",
-      tech: ["Python", "TensorFlow", "Pandas", "Binance API", "TA-Lib"],
-      category: "AI/Trading",
-      icon: TrendingUp,
-      color: "text-green-500",
-      features: ["Market Prediction", "Risk Management", "Real-time Trading", "Portfolio Optimization"]
+      title: "myNeutron - AI Second Brain & Search",
+      description: "Revolutionary Chrome extension that serves as your personal memory for the internet. Features AI-powered context management, semantic search across multiple platforms, and one-click capture system with client-side encryption.",
+      tech: ["Chrome Extension", "JavaScript", "AI Integration", "Semantic Search", "Blockchain"],
+      category: "AI Product",
+      icon: Brain,
+      color: "text-purple-500",
+      features: ["AI Memory System", "Semantic Search", "Context Injection", "Privacy-First"],
+      link: "https://chromewebstore.google.com/detail/ojjgidkegodkkcjcpoefndpgfjhamhhb?utm_source=item-share-cb"
     },
     {
-      title: "LLM-Powered Chatbot",
-      description: "Advanced conversational AI chatbot using OpenAI GPT and Hugging Face transformers with RAG (Retrieval-Augmented Generation) for context-aware responses.",
-      tech: ["OpenAI API", "Hugging Face", "FastAPI", "Python", "RAG"],
-      category: "NLP/LLM",
-      icon: MessageSquare,
+      title: "AI Web Researcher",
+      description: "Intelligent web research system using Groq's function calling capabilities. The system can automatically search the web, scrape content, and provide comprehensive research results with real-time data analysis.",
+      tech: ["Groq API", "Python", "Streamlit", "Web Scraping", "Function Calling"],
+      category: "AI Research",
+      icon: Brain,
       color: "text-blue-500",
-      features: ["Context Awareness", "RAG Implementation", "Multi-turn Conversations", "Knowledge Base"]
+      features: ["Function Calling", "Web Search", "Content Scraping", "Real-time Analysis"],
+      link: "https://github.com/Mahad-007/Web-Researcher-Via-Groq-sFunction-Calling"
     },
     {
-      title: "AI Content Generator",
-      description: "Intelligent content generation platform using transformer models for automated text, image, and code generation with customizable templates.",
-      tech: ["Hugging Face", "OpenAI", "Gradio", "Python", "Transformers"],
-      category: "Generative AI",
+      title: "Prompt Optimizer MCP Server",
+      description: "Advanced MCP server deployed on Smithery platform for optimizing AI prompts. Provides intelligent prompt suggestions, A/B testing capabilities, and performance analytics for better AI model interactions.",
+      tech: ["MCP Servers", "Python", "Smithery", "Prompt Engineering", "API Development"],
+      category: "MCP Development",
       icon: Bot,
-      color: "text-cyan-500",
-      features: ["Multi-modal Generation", "Template System", "Quality Control", "API Integration"]
+      color: "text-purple-500",
+      features: ["Prompt Optimization", "A/B Testing", "Performance Analytics", "API Integration"],
+      link: "https://smithery.ai/server/@Mahad-007/promptoptimizermcp"
     },
     {
-      title: "Face Recognition Attendance System",
-      description: "AI-powered attendance management system that leverages OpenCV face recognition and a Tkinter GUI to automate student attendance with accuracy and ease.",
-      tech: ["Python", "OpenCV", "Tkinter", "Pandas", "NumPy"],
-      category: "Computer Vision",
+      title: "ResuMatch AI",
+      description: "Intelligent resume analysis system that identifies gaps and provides personalized improvement suggestions. Uses advanced NLP and machine learning to analyze resumes and offer actionable career development advice.",
+      tech: ["Streamlit", "Python", "NLP", "Machine Learning", "Resume Analysis"],
+      category: "AI Analytics",
       icon: Users,
-      color: "text-indigo-500",
-      features: ["LBPH Face Recognition", "Password Protection", "Real-time Logging", "CSV Reports"]
-    }
+      color: "text-green-500",
+      features: ["Gap Analysis", "Improvement Suggestions", "NLP Processing", "Career Insights"],
+      link: "https://mahad-007-resumatch-ai-main-1jiakw.streamlit.app/"
+    },
   ];
 
   const containerVariants = {
@@ -97,6 +101,16 @@ export const ProjectsSection = () => {
       "Scikit-learn": SiScikitlearn,
       "OpenCV": SiOpencv,
       "spaCy": SiSpacy,
+      "CrewAI": SiPython,
+      "MCP Servers": SiPython,
+      "Langchain": SiPython,
+      "Vapi": SiPython,
+      "Next.js": SiPython,
+      "Supabase": SiPython,
+      "PostgreSQL": SiPython,
+      "Drizzle ORM": SiPython,
+      "RAG": SiPython,
+      "Chainlit": SiPython,
     };
     return iconMap[tech] || SiPython;
   };
@@ -138,6 +152,13 @@ export const ProjectsSection = () => {
         >
           {projects.map((project, index) => {
             const IconComponent = project.icon;
+            const CardWrapper = project.link ? 'a' : 'div';
+            const cardProps = project.link ? {
+              href: project.link,
+              target: "_blank",
+              rel: "noopener noreferrer"
+            } : {};
+            
             return (
               <motion.div
                 key={project.title}
@@ -149,76 +170,83 @@ export const ProjectsSection = () => {
                 }}
                 className="group h-full"
               >
-                <Card className="project-card h-full group-hover:shadow-2xl group-hover:shadow-primary/10 flex flex-col hover-lift hover-glow">
-                  <CardHeader className="pb-3 flex-shrink-0">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className={`p-2 rounded-lg bg-card border border-border/50 ${project.color}`}>
-                        <IconComponent className="w-5 h-5" />
-                      </div>
-                      <Badge variant="outline" className="bg-primary/10 border-primary/30 text-primary text-xs">
-                        {project.category}
-                      </Badge>
-                    </div>
-                    <CardTitle className="text-lg font-bold text-foreground group-hover:text-primary transition-colors">
-                      {project.title}
-                    </CardTitle>
-                  </CardHeader>
-                  
-                  <CardContent className="flex-1 flex flex-col space-y-3">
-                    <CardDescription className="text-muted-foreground leading-relaxed text-sm line-clamp-3">
-                      {project.description}
-                    </CardDescription>
-                    
-                    {/* Features - Compact */}
-                    <div className="space-y-1">
-                      <h4 className="text-xs font-semibold text-foreground">Features:</h4>
-                      <div className="flex flex-wrap gap-1">
-                        {project.features.slice(0, 3).map((feature) => (
-                          <Badge
-                            key={feature}
-                            variant="secondary"
-                            className="text-xs bg-secondary/50 text-secondary-foreground border-border/50 px-2 py-0.5"
-                          >
-                            {feature}
-                          </Badge>
-                        ))}
-                        {project.features.length > 3 && (
-                          <Badge
-                            variant="secondary"
-                            className="text-xs bg-secondary/50 text-secondary-foreground border-border/50 px-2 py-0.5"
-                          >
-                            +{project.features.length - 3}
-                          </Badge>
-                        )}
-                      </div>
-                    </div>
-                    
-                    {/* Tech Stack - Compact */}
-                    <div className="space-y-1 mt-auto">
-                      <h4 className="text-xs font-semibold text-foreground">Tech:</h4>
-                      <div className="flex flex-wrap gap-1">
-                        {project.tech.slice(0, 4).map((tech) => {
-                          const TechIcon = getTechIcon(tech);
-                          return (
-                            <div
-                              key={tech}
-                              className="flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-card/50 border border-border/30 hover:border-primary/50 transition-colors"
-                            >
-                              <TechIcon className="w-2.5 h-2.5" />
-                              <span className="text-xs text-muted-foreground">{tech}</span>
-                            </div>
-                          );
-                        })}
-                        {project.tech.length > 4 && (
-                          <div className="flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-card/50 border border-border/30">
-                            <span className="text-xs text-muted-foreground">+{project.tech.length - 4}</span>
+                <CardWrapper {...cardProps} className={project.link ? "block h-full" : ""}>
+                  <Card className={`project-card h-full group-hover:shadow-2xl group-hover:shadow-primary/10 flex flex-col hover-lift hover-glow ${project.link ? 'cursor-pointer' : ''}`}>
+                    <CardHeader className="pb-3 flex-shrink-0">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-3">
+                          <div className={`p-2 rounded-lg bg-card border border-border/50 ${project.color}`}>
+                            <IconComponent className="w-5 h-5" />
                           </div>
+                          <Badge variant="outline" className="bg-primary/10 border-primary/30 text-primary text-xs">
+                            {project.category}
+                          </Badge>
+                        </div>
+                        {project.link && (
+                          <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
                         )}
                       </div>
-                    </div>
+                      <CardTitle className="text-lg font-bold text-foreground group-hover:text-primary transition-colors">
+                        {project.title}
+                      </CardTitle>
+                    </CardHeader>
                     
-                  </CardContent>
-                </Card>
+                    <CardContent className="flex-1 flex flex-col space-y-3">
+                      <CardDescription className="text-muted-foreground leading-relaxed text-sm line-clamp-3">
+                        {project.description}
+                      </CardDescription>
+                      
+                      {/* Features - Compact */}
+                      <div className="space-y-1">
+                        <h4 className="text-xs font-semibold text-foreground">Features:</h4>
+                        <div className="flex flex-wrap gap-1">
+                          {project.features.slice(0, 3).map((feature) => (
+                            <Badge
+                              key={feature}
+                              variant="secondary"
+                              className="text-xs bg-secondary/50 text-secondary-foreground border-border/50 px-2 py-0.5"
+                            >
+                              {feature}
+                            </Badge>
+                          ))}
+                          {project.features.length > 3 && (
+                            <Badge
+                              variant="secondary"
+                              className="text-xs bg-secondary/50 text-secondary-foreground border-border/50 px-2 py-0.5"
+                            >
+                              +{project.features.length - 3}
+                            </Badge>
+                          )}
+                        </div>
+                      </div>
+                      
+                      {/* Tech Stack - Compact */}
+                      <div className="space-y-1 mt-auto">
+                        <h4 className="text-xs font-semibold text-foreground">Tech:</h4>
+                        <div className="flex flex-wrap gap-1">
+                          {project.tech.slice(0, 4).map((tech) => {
+                            const TechIcon = getTechIcon(tech);
+                            return (
+                              <div
+                                key={tech}
+                                className="flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-card/50 border border-border/30 hover:border-primary/50 transition-colors"
+                              >
+                                <TechIcon className="w-2.5 h-2.5" />
+                                <span className="text-xs text-muted-foreground">{tech}</span>
+                              </div>
+                            );
+                          })}
+                          {project.tech.length > 4 && (
+                            <div className="flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-card/50 border border-border/30">
+                              <span className="text-xs text-muted-foreground">+{project.tech.length - 4}</span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      
+                    </CardContent>
+                  </Card>
+                </CardWrapper>
               </motion.div>
             );
           })}

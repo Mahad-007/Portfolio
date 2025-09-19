@@ -11,7 +11,7 @@ export const Navbar = () => {
       setScrolled(window.scrollY > 50);
       
       // Update active section based on scroll position
-      const sections = ["hero", "about", "skills", "projects", "experience", "contact"];
+      const sections = ["hero", "about", "experience", "skills", "projects", "certificates", "contact"];
       let currentSection = "hero";
       
       // Find the section that's currently in view
@@ -20,17 +20,14 @@ export const Navbar = () => {
         if (element) {
           const rect = element.getBoundingClientRect();
           // Section is considered active if it's in the top portion of the viewport
-          if (rect.top <= 150 && rect.bottom >= 150) {
+          if (rect.top <= 200 && rect.bottom >= 200) {
             currentSection = sections[i];
             break;
           }
         }
       }
       
-      // Map skills and projects to about section
-      if (currentSection === "skills" || currentSection === "projects") {
-        currentSection = "about";
-      }
+      // No mapping needed - each section should be highlighted independently
       
       setActiveSection(currentSection);
     };
@@ -45,12 +42,19 @@ export const Navbar = () => {
     { name: "Home", href: "#hero", icon: Home },
     { name: "About", href: "#about" },
     { name: "Experience", href: "#experience" },
+    { name: "Expertise", href: "#skills" },
+    { name: "Projects", href: "#projects" },
+    { name: "Certifications", href: "#certificates" },
     { name: "Contact", href: "#contact" },
   ];
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     element?.scrollIntoView({ behavior: "smooth" });
+    
+    // Immediately highlight the clicked section
+    const sectionId = href.replace("#", "");
+    setActiveSection(sectionId);
   };
 
   return (

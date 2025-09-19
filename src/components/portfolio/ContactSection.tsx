@@ -64,36 +64,53 @@ export const ContactSection = () => {
               <div className="glass rounded-2xl p-8 hover:shadow-glow transition-all duration-500 text-center">
                 <h3 className="text-2xl font-bold mb-6">Get in Touch</h3>
                 
-                <div className="space-y-4">
-                  <div className="flex items-center justify-center space-x-4">
-                    <div className="p-3 bg-primary/20 rounded-lg">
+                <div className="space-y-6">
+                  <a 
+                    href="mailto:mahadghafoor.07@gmail.com?subject=Hello from Portfolio&body=Hi Mahad, I came across your portfolio and would like to connect!"
+                    className="flex items-center justify-center space-x-4 p-4 rounded-xl hover:bg-primary/10 transition-all duration-300 group cursor-pointer"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      window.location.href = 'mailto:mahadghafoor.07@gmail.com?subject=Hello from Portfolio&body=Hi Mahad, I came across your portfolio and would like to connect!';
+                    }}
+                  >
+                    <div className="p-3 bg-primary/20 rounded-lg group-hover:bg-primary/30 transition-colors">
                       <Mail className="w-6 h-6 text-primary" />
                     </div>
-                    <div>
-                      <p className="font-medium">Email</p>
-                      <p className="text-muted-foreground">mahadghafoor.07@gmail.com</p>
+                    <div className="text-left">
+                      <p className="font-medium text-foreground group-hover:text-primary transition-colors">Email</p>
+                      <p className="text-muted-foreground group-hover:text-foreground transition-colors">mahadghafoor.07@gmail.com</p>
                     </div>
-                  </div>
+                  </a>
                   
-                  <div className="flex items-center justify-center space-x-4">
-                    <div className="p-3 bg-secondary/20 rounded-lg">
-                      <Github className="w-6 h-6 text-secondary" />
+                  <a 
+                    href="https://github.com/Mahad-007"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center space-x-4 p-4 rounded-xl hover:bg-gray-800/10 transition-all duration-300 group"
+                  >
+                    <div className="p-3 bg-gray-800/20 rounded-lg group-hover:bg-gray-800/30 transition-colors">
+                      <Github className="w-6 h-6 text-gray-800 dark:text-white" />
                     </div>
-                    <div>
-                      <p className="font-medium">GitHub</p>
-                      <p className="text-muted-foreground">@Mahad-007</p>
+                    <div className="text-left">
+                      <p className="font-medium text-foreground group-hover:text-gray-800 dark:group-hover:text-white transition-colors">GitHub</p>
+                      <p className="text-muted-foreground group-hover:text-foreground transition-colors">@Mahad-007</p>
                     </div>
-                  </div>
+                  </a>
                   
-                  <div className="flex items-center justify-center space-x-4">
-                    <div className="p-3 bg-accent/20 rounded-lg">
+                  <a 
+                    href="https://www.linkedin.com/in/mahad-khalid-ghafoor-001574240/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center space-x-4 p-4 rounded-xl hover:bg-accent/10 transition-all duration-300 group"
+                  >
+                    <div className="p-3 bg-accent/20 rounded-lg group-hover:bg-accent/30 transition-colors">
                       <Linkedin className="w-6 h-6 text-accent" />
                     </div>
-                    <div>
-                      <p className="font-medium">LinkedIn</p>
-                      <p className="text-muted-foreground">Mahad Khalid Ghafoor</p>
+                    <div className="text-left">
+                      <p className="font-medium text-foreground group-hover:text-accent transition-colors">LinkedIn</p>
+                      <p className="text-muted-foreground group-hover:text-foreground transition-colors">Mahad Khalid Ghafoor</p>
                     </div>
-                  </div>
+                  </a>
                 </div>
               </div>
 
@@ -102,20 +119,43 @@ export const ContactSection = () => {
                 <div className="glass rounded-2xl p-8 text-center">
                   <h3 className="text-xl font-bold mb-6">Connect with Me</h3>
                   
-                  <div className="flex justify-center space-x-6">
+                  <div className="flex justify-center space-x-8">
                     {[
-                      { Icon: Github, color: 'hover:text-purple-400', href: 'https://github.com/muzamilfaisal1' },
-                      { Icon: Linkedin, color: 'hover:text-blue-400', href: 'https://linkedin.com/in/muhammad-muzamil-50266431a' },
-                      { Icon: Mail, color: 'hover:text-green-400', href: 'mailto:muzamilfaisal46@gmail.com' },
-                    ].map(({ Icon, color, href }, index) => (
+                      { 
+                        Icon: Github, 
+                        color: 'text-white hover:text-white', 
+                        bgColor: 'bg-gray-800 hover:bg-primary',
+                        href: 'https://github.com/Mahad-007',
+                        label: 'GitHub'
+                      },
+                      { 
+                        Icon: Linkedin, 
+                        color: 'text-foreground hover:text-white', 
+                        bgColor: 'bg-card hover:bg-blue-500',
+                        href: 'https://www.linkedin.com/in/mahad-khalid-ghafoor-001574240/',
+                        label: 'LinkedIn'
+                      },
+                      { 
+                        Icon: Mail, 
+                        color: 'text-foreground hover:text-white', 
+                        bgColor: 'bg-card hover:bg-green-500',
+                        href: 'mailto:mahadghafoor.07@gmail.com?subject=Hello from Portfolio&body=Hi Mahad, I came across your portfolio and would like to connect!',
+                        label: 'Email'
+                      },
+                    ].map(({ Icon, color, bgColor, href, label }, index) => (
                       <a
                         key={index}
                         href={href}
                         target={Icon === Mail ? undefined : "_blank"}
                         rel={Icon === Mail ? undefined : "noopener noreferrer"}
-                        className={`social-icon p-4 bg-muted hover:bg-gradient-primary rounded-full transition-all duration-300 transform hover:scale-110 hover:shadow-glow ${color} group cursor-pointer`}
+                        className={`social-icon p-4 ${bgColor} rounded-full transition-all duration-300 transform hover:scale-110 hover:shadow-glow group cursor-pointer border border-border/50 hover:border-primary/50`}
+                        title={label}
+                        onClick={Icon === Mail ? (e) => {
+                          e.preventDefault();
+                          window.location.href = 'mailto:mahadghafoor.07@gmail.com?subject=Hello from Portfolio&body=Hi Mahad, I came across your portfolio and would like to connect!';
+                        } : undefined}
                       >
-                        <Icon className="w-6 h-6 group-hover:text-white transition-colors" />
+                        <Icon className={`w-6 h-6 ${color} transition-colors`} />
                       </a>
                     ))}
                   </div>

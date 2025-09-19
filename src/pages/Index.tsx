@@ -4,6 +4,7 @@ import { AboutSection } from "@/components/portfolio/AboutSection";
 import { SkillsSection } from "@/components/portfolio/SkillsSection";
 import { ProjectsSection } from "@/components/portfolio/ProjectsSection";
 import { ExperienceSection } from "@/components/portfolio/ExperienceSection";
+import { CertificatesSection } from "@/components/portfolio/CertificatesSection";
 import { ContactSection } from "@/components/portfolio/ContactSection";
 import { Footer } from "@/components/portfolio/Footer";
 import { SectionSeparator } from "@/components/ui/section-separator";
@@ -16,11 +17,13 @@ const Index = () => {
       <SectionSeparator />
       <AboutSection />
       <SectionSeparator />
+      <ExperienceSection />
+      <SectionSeparator />
       <SkillsSection />
       <SectionSeparator />
       <ProjectsSection />
       <SectionSeparator />
-      <ExperienceSection />
+      <CertificatesSection />
       <SectionSeparator />
       <ContactSection />
       <Footer />
