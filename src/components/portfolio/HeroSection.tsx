@@ -501,7 +501,7 @@ export const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           whileHover={{ scale: 1.05 }}
         >
-          Hi I am <span className="text-shimmer">Mahad Khalid Ghafoor</span>
+          Hi I am <span className="text-shimmer">Mahad Khalid</span>
         </motion.h1>
 
         <motion.div
