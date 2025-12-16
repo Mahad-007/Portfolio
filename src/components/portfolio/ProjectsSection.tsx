@@ -137,7 +137,7 @@ export const ProjectsSection = () => {
           </motion.div>
           
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
-          A small selection of<span className="text-shimmer"> Recent Projects</span>
+          A small selection of<span className="text-shimmer"> Featured Work</span>
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
             Innovative solutions leveraging cutting-edge artificial intelligence and machine learning technologies

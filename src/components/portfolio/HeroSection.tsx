@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
-import { ChevronDown, Sparkles, Brain, Cpu } from "lucide-react";
-import { TypingAnimation } from "@/components/ui/typing-animation";
+import { ChevronDown, Sparkles, Brain, Cpu, Rocket, User, MessageCircle, Smartphone, Code } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 
@@ -148,12 +147,13 @@ export const HeroSection = () => {
     document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const typingTexts = [
-    "AI & Machine Learning Engineer",
-    "Generative AI Specialist", 
-    "Deep Learning Enthusiast",
-    "Python Developer"
-  ];
+  const scrollToProjects = () => {
+    document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const scrollToContact = () => {
+    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <section 
@@ -505,83 +505,97 @@ export const HeroSection = () => {
         </motion.h1>
 
         <motion.div
-          className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold mb-6 md:mb-8 min-h-[2.5rem] md:min-h-[3rem] flex items-center justify-center px-2"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          <TypingAnimation 
-            texts={typingTexts}
-            speed={80}
-            deleteSpeed={40}
-            pauseTime={2000}
-            className="glow-text"
-          />
-        </motion.div>
-
-        <motion.div
           className="text-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
         >
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-muted-foreground mb-6 md:mb-8 max-w-3xl mx-auto leading-relaxed px-4">
-            Crafting intelligent solutions with cutting-edge AI/ML technologies. 
-            Passionate about building the future of artificial intelligence, one algorithm at a time.
+          <p className="text-sm sm:text-base md:text-lg text-muted-foreground mb-8 md:mb-10 max-w-4xl mx-auto leading-relaxed px-4">
+            Crafting intelligent, future-ready solutions with <span className="text-primary font-semibold">Generative AI</span>, full-stack Web development, and React Native <span className="text-primary font-semibold">mobile apps</span>. I build scalable AI-powered platforms, modern digital experiences, and explore emerging <span className="text-primary font-semibold">Web3</span> and blockchain technologies to deliver secure, innovative products turning complex challenges into high-impact solutions, one algorithm, model, and line of code at a time.
           </p>
-          
+
+          {/* Primary CTA Buttons */}
           <motion.div
-            className="flex flex-wrap justify-center gap-2 md:gap-4 text-xs sm:text-sm text-muted-foreground px-4"
+            className="flex flex-wrap justify-center gap-3 md:gap-4 mb-6 px-4"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+          >
+            <motion.button
+              onClick={scrollToProjects}
+              className="flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-all duration-300 shadow-lg hover:shadow-primary/50"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Rocket className="w-4 h-4" />
+              Explore
+            </motion.button>
+
+            <motion.button
+              onClick={scrollToAbout}
+              className="flex items-center gap-2 px-6 py-3 bg-transparent border-2 border-primary text-primary rounded-lg font-medium hover:bg-primary/10 transition-all duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <User className="w-4 h-4" />
+              About Me
+            </motion.button>
+          </motion.div>
+
+          {/* Secondary Action Buttons */}
+          <motion.div
+            className="flex flex-wrap justify-center gap-3 px-4"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8 }}
           >
-            <span className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-primary"></div>
-              AI Agents
-            </span>
-            <span className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-accent"></div>
-              Machine Learning
-            </span>
-            <span className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-primary"></div>
-              MCP Servers
-            </span>
-            <span className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-accent"></div>
-              Conversational AI
-            </span>
-            <span className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-primary"></div>
-              CrewAI
-            </span>
-            <span className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-accent"></div>
-              Next.js & Supabase
-            </span>
-            
+            <motion.button
+              onClick={scrollToContact}
+              className="px-4 py-2 bg-transparent border border-muted-foreground/30 text-muted-foreground rounded-md text-sm font-medium hover:border-primary hover:text-primary transition-all duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <MessageCircle className="w-4 h-4 inline mr-2" />
+              Get Advice
+            </motion.button>
+
+            <motion.button
+              onClick={scrollToProjects}
+              className="px-4 py-2 bg-transparent border border-muted-foreground/30 text-muted-foreground rounded-md text-sm font-medium hover:border-primary hover:text-primary transition-all duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Smartphone className="w-4 h-4 inline mr-2" />
+              Get Apps
+            </motion.button>
+
+            <motion.button
+              onClick={scrollToProjects}
+              className="px-4 py-2 bg-transparent border border-muted-foreground/30 text-muted-foreground rounded-md text-sm font-medium hover:border-primary hover:text-primary transition-all duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Code className="w-4 h-4 inline mr-2" />
+              Get Software
+            </motion.button>
           </motion.div>
         </motion.div>
       </motion.div>
 
-      {/* Explore Button */}
+      {/* Scroll Down Indicator */}
       <div className="absolute bottom-4 md:bottom-8 left-0 right-0 flex justify-center z-20">
-        <motion.button
+        <motion.div
           onClick={scrollToAbout}
-          className="text-muted-foreground hover:text-primary transition-colors duration-300 group flex flex-col items-center gap-1 p-2 md:p-0 touch-manipulation"
-          animate={{ y: [0, 5, 0] }}
+          className="text-muted-foreground/50 hover:text-primary transition-colors duration-300 cursor-pointer"
+          animate={{ y: [0, 8, 0] }}
           transition={{
             duration: 1.5,
             repeat: Infinity,
             ease: "easeInOut"
           }}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
         >
-            <span className="text-xs font-medium group-hover:text-primary transition-colors">Explore</span>
-          <ChevronDown size={18} className="group-hover:drop-shadow-lg group-hover:drop-shadow-primary/50 md:w-5 md:h-5" />
-        </motion.button>
+          <ChevronDown size={24} className="md:w-6 md:h-6" />
+        </motion.div>
       </div>
     </section>
   );

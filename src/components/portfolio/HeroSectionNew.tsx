@@ -1,0 +1,264 @@
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { ChevronDown, Sparkles, Code2, Zap, ArrowRight, Github, Linkedin, Mail } from 'lucide-react';
+import { useRef } from 'react';
+import { Button } from '@/components/ui/button';
+
+export const HeroSectionNew = () => {
+  const heroRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"]
+  });
+
+  // Parallax transformations
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.5, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
+
+  const scrollToProjects = () => {
+    document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const scrollToContact = () => {
+    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  return (
+    <section
+      ref={heroRef}
+      id="hero"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-background via-background to-background-secondary"
+    >
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Floating Gradient Orbs */}
+        <motion.div
+          className="absolute top-20 left-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl"
+          animate={{
+            x: [0, 100, 0],
+            y: [0, -50, 0],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div
+          className="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl"
+          animate={{
+            x: [0, -80, 0],
+            y: [0, 60, 0],
+            scale: [1, 1.3, 1],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+
+        {/* Grid Pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:64px_64px]" />
+      </div>
+
+      {/* Main Content */}
+      <motion.div
+        style={{ y, opacity, scale }}
+        className="relative z-10 max-w-6xl mx-auto px-4 text-center"
+      >
+        {/* Name - Hero Title */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 100 }}
+          className="mb-4"
+        >
+          <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight">
+            <motion.span
+              className="inline-block bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-gradient"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3, type: "spring", stiffness: 120 }}
+            >
+              Mahad Khalid
+            </motion.span>
+            <br />
+            <motion.span
+              className="inline-block bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent animate-gradient"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5, type: "spring", stiffness: 120 }}
+              style={{ animationDelay: "0.5s" }}
+            >
+              Ghafoor
+            </motion.span>
+          </h1>
+        </motion.div>
+
+        {/* Badge */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8"
+        >
+          <span className="text-sm font-medium text-foreground">
+            AI Engineer & Full Stack Developer
+          </span>
+        </motion.div>
+
+        {/* Main Heading with Stagger Animation */}
+        <motion.h2
+          className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+        >
+          <motion.span
+            className="inline-block"
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.9, type: "spring", stiffness: 100 }}
+          >
+            Building
+          </motion.span>
+          {" "}
+          <motion.span
+            className="inline-block text-primary"
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 1.0, type: "spring", stiffness: 100 }}
+          >
+            Intelligent
+          </motion.span>
+          {" "}
+          <motion.span
+            className="inline-block"
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 1.1, type: "spring", stiffness: 100 }}
+          >
+            Solutions
+          </motion.span>
+        </motion.h2>
+
+        {/* Subtitle */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12"
+        >
+          Transforming ideas into powerful AI-driven applications.
+          Specializing in machine learning, full-stack development, and intelligent automation.
+        </motion.p>
+
+        {/* CTA Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+        >
+          <Button
+            onClick={scrollToProjects}
+            size="lg"
+            className="btn-3d group relative overflow-hidden"
+          >
+            <span className="relative z-10 flex items-center gap-2">
+              View My Work
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </span>
+          </Button>
+
+          <Button
+            onClick={scrollToContact}
+            size="lg"
+            variant="outline"
+            className="group border-2 border-primary/30 hover:border-primary/50 hover:bg-primary/5"
+          >
+            <span className="flex items-center gap-2">
+              Get In Touch
+            </span>
+          </Button>
+        </motion.div>
+
+        {/* Social Media Links */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 1.2 }}
+          className="flex flex-wrap items-center justify-center gap-4 mt-16"
+        >
+          {[
+            {
+              icon: Github,
+              label: "GitHub",
+              href: "https://github.com/Mahad-007",
+              color: "hover:bg-gray-800/10 hover:border-gray-800/30"
+            },
+            {
+              icon: Linkedin,
+              label: "LinkedIn",
+              href: "https://www.linkedin.com/in/mahad-khalid-ghafoor-001574240/",
+              color: "hover:bg-blue-500/10 hover:border-blue-500/30"
+            },
+            {
+              icon: Mail,
+              label: "Email",
+              href: "mailto:mahadghafoor.07@gmail.com?subject=Hello from Portfolio&body=Hi Mahad, I came across your portfolio and would like to connect!",
+              color: "hover:bg-primary/10 hover:border-primary/30"
+            },
+          ].map((item, index) => (
+            <motion.a
+              key={item.label}
+              href={item.href}
+              target={item.icon === Mail ? undefined : "_blank"}
+              rel={item.icon === Mail ? undefined : "noopener noreferrer"}
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{
+                duration: 0.5,
+                delay: 1.3 + index * 0.1,
+                type: "spring",
+                stiffness: 300,
+                damping: 20
+              }}
+              whileHover={{ scale: 1.05, y: -2 }}
+              className={`flex items-center gap-2 px-6 py-3 rounded-full bg-card border border-border shadow-sm transition-all cursor-pointer ${item.color}`}
+              onClick={item.icon === Mail ? (e) => {
+                e.preventDefault();
+                window.location.href = item.href;
+              } : undefined}
+            >
+              <item.icon className="w-4 h-4 text-primary" />
+              <span className="text-sm font-medium">{item.label}</span>
+            </motion.a>
+          ))}
+        </motion.div>
+      </motion.div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 1.5 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+      >
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          className="flex flex-col items-center gap-2 cursor-pointer"
+          onClick={() => {
+            document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+          }}
+        >
+          <span className="text-sm text-muted-foreground">Scroll to explore</span>
+          <ChevronDown className="w-6 h-6 text-primary" />
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+};
