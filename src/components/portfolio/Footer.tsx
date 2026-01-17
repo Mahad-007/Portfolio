@@ -48,7 +48,7 @@ export const Footer = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             viewport={{ once: true }}
           >
-            © 2025 <span className="text-shimmer">Mahad Khalid Ghafoor</span>
+            © 2026 <span className="text-shimmer">Mahad Khalid Ghafoor</span>
           </motion.p>
 
           {/* Bottom Message */}
