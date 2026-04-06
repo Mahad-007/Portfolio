@@ -36,10 +36,10 @@ export const ContactSection = () => {
       Icon: Mail,
       label: 'Email',
       value: 'mahadghafoor.07@gmail.com',
-      href: 'mailto:mahadghafoor.07@gmail.com?subject=Hello from Portfolio&body=Hi Mahad, I came across your portfolio and would like to connect!',
+      href: 'https://mail.google.com/mail/?view=cm&fs=1&to=mahadghafoor.07@gmail.com&su=Hello+from+Portfolio&body=Hi+Mahad,+I+came+across+your+portfolio+and+would+like+to+connect!',
       color: 'group-hover:bg-primary/20 group-hover:border-primary/40',
       iconColor: 'text-primary',
-      external: false,
+      external: true,
     },
     {
       Icon: Github,
@@ -126,6 +126,11 @@ export const ContactSection = () => {
                     target={external ? "_blank" : undefined}
                     rel={external ? "noopener noreferrer" : undefined}
                     className={`group flex items-center justify-between p-5 rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-300 hover:shadow-lg ${color}`}
+                    onClick={Icon === Mail ? (e: React.MouseEvent) => {
+                      e.preventDefault();
+                      const win = window.open(href, '_blank');
+                      if (!win) window.location.href = 'mailto:mahadghafoor.07@gmail.com?subject=Hello from Portfolio&body=Hi Mahad, I came across your portfolio and would like to connect!';
+                    } : undefined}
                   >
                     <div className="flex items-center gap-4">
                       <div className="p-3 rounded-xl bg-secondary/50 group-hover:scale-110 transition-transform duration-300">
@@ -146,14 +151,19 @@ export const ContactSection = () => {
                   {[
                     { Icon: Github, href: 'https://github.com/Mahad-007', bg: 'hover:bg-gray-800 hover:text-white' },
                     { Icon: Linkedin, href: 'https://www.linkedin.com/in/mahad-khalid-ghafoor-001574240/', bg: 'hover:bg-blue-600 hover:text-white' },
-                    { Icon: Mail, href: 'mailto:mahadghafoor.07@gmail.com', bg: 'hover:bg-primary hover:text-white' },
+                    { Icon: Mail, href: 'https://mail.google.com/mail/?view=cm&fs=1&to=mahadghafoor.07@gmail.com&su=Hello+from+Portfolio&body=Hi+Mahad,+I+came+across+your+portfolio+and+would+like+to+connect!', bg: 'hover:bg-primary hover:text-white' },
                   ].map(({ Icon, href, bg }, i) => (
                     <a
                       key={i}
                       href={href}
-                      target={Icon === Mail ? undefined : "_blank"}
-                      rel={Icon === Mail ? undefined : "noopener noreferrer"}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className={`p-2.5 rounded-full border border-border/50 bg-card/50 text-muted-foreground transition-all duration-300 hover:scale-110 hover:shadow-md ${bg}`}
+                      onClick={Icon === Mail ? (e: React.MouseEvent) => {
+                        e.preventDefault();
+                        const win = window.open(href, '_blank');
+                        if (!win) window.location.href = 'mailto:mahadghafoor.07@gmail.com';
+                      } : undefined}
                     >
                       <Icon className="w-4 h-4" />
                     </a>

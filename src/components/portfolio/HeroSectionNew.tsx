@@ -208,15 +208,15 @@ export const HeroSectionNew = () => {
             {
               icon: Mail,
               label: "Email",
-              href: "mailto:mahadghafoor.07@gmail.com?subject=Hello from Portfolio&body=Hi Mahad, I came across your portfolio and would like to connect!",
+              href: "https://mail.google.com/mail/?view=cm&fs=1&to=mahadghafoor.07@gmail.com&su=Hello+from+Portfolio&body=Hi+Mahad,+I+came+across+your+portfolio+and+would+like+to+connect!",
               color: "hover:bg-primary/10 hover:border-primary/30"
             },
           ].map((item, index) => (
             <motion.a
               key={item.label}
               href={item.href}
-              target={item.icon === Mail ? undefined : "_blank"}
-              rel={item.icon === Mail ? undefined : "noopener noreferrer"}
+              target="_blank"
+              rel="noopener noreferrer"
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{
@@ -228,9 +228,10 @@ export const HeroSectionNew = () => {
               }}
               whileHover={{ scale: 1.05, y: -2 }}
               className={`flex items-center gap-2 px-6 py-3 rounded-full bg-card border border-border shadow-sm transition-all cursor-pointer ${item.color}`}
-              onClick={item.icon === Mail ? (e) => {
+              onClick={item.icon === Mail ? (e: React.MouseEvent) => {
                 e.preventDefault();
-                window.location.href = item.href;
+                const win = window.open(item.href, '_blank');
+                if (!win) window.location.href = "mailto:mahadghafoor.07@gmail.com?subject=Hello from Portfolio&body=Hi Mahad, I came across your portfolio and would like to connect!";
               } : undefined}
             >
               <item.icon className="w-4 h-4 text-primary" />
