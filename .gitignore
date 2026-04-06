@@ -22,4 +22,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-Projects_Images/*
+Projects_Images/
+bun.lockb
