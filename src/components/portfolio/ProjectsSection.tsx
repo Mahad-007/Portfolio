@@ -105,6 +105,28 @@ export const ProjectsSection = () => {
   // Web Projects with multiple images
   const webProjects = [
     {
+      title: "Distriq AI",
+      description: "Global relocation intelligence platform that helps expats and families know their neighborhood before they sign. Features AI-powered neighborhood comparison, interactive maps, market analytics, school ratings, and safety indices across Dubai, Singapore, and London.",
+      tech: ["React", "Next.js", "TypeScript", "Node.js", "AI/ML"],
+      category: "PropTech / AI",
+      icon: Globe,
+      color: "text-blue-600",
+      features: ["Neighborhood Intelligence", "AI-Powered Analytics", "Interactive Maps", "Market Comparison"],
+      images: ["/projects/distriq-1.png", "/projects/distriq-2.png", "/projects/distriq-3.png", "/projects/distriq-4.png"],
+      link: "https://distriq.ai/"
+    },
+    {
+      title: "BeanBee AI",
+      description: "Real-time BSC token scanner that tracks every new token launch on Binance Smart Chain. Features BeeScore safety ratings, whale activity monitoring, rug detection, custom alerts, and bonding curve progress — all in one place.",
+      tech: ["React", "TypeScript", "Node.js", "Blockchain", "Real-time Data"],
+      category: "Web3 / DeFi",
+      icon: TrendingUp,
+      color: "text-yellow-500",
+      features: ["Real-time Token Tracking", "BeeScore Safety Ratings", "Whale Monitoring", "Rug Detection"],
+      images: ["/projects/beanbee-1.png", "/projects/beanbee-2.png", "/projects/beanbee-3.png"],
+      link: "https://beanbee.ai/"
+    },
+    {
       title: "LynxFlow Health",
       description: "Remote patient treatment monitoring platform that helps healthcare providers track medication adherence, predict risks early, and improve patient outcomes. Features real-time dose monitoring, analytics dashboard, and IoT device integration with 94% better medication adherence rates.",
       tech: ["React", "Next.js", "Node.js", "Healthcare IoT", "Analytics"],

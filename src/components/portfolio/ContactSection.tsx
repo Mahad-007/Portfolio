@@ -1,7 +1,7 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Github, Linkedin, Mail } from 'lucide-react';
+import { Github, Linkedin, Mail, ArrowUpRight, Sparkles } from 'lucide-react';
 
 export const ContactSection = () => {
   const { ref, inView } = useInView({
@@ -14,7 +14,7 @@ export const ContactSection = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: 0.15,
         delayChildren: 0.1,
       },
     },
@@ -31,12 +31,43 @@ export const ContactSection = () => {
     },
   };
 
+  const links = [
+    {
+      Icon: Mail,
+      label: 'Email',
+      value: 'mahadghafoor.07@gmail.com',
+      href: 'mailto:mahadghafoor.07@gmail.com?subject=Hello from Portfolio&body=Hi Mahad, I came across your portfolio and would like to connect!',
+      color: 'group-hover:bg-primary/20 group-hover:border-primary/40',
+      iconColor: 'text-primary',
+      external: false,
+    },
+    {
+      Icon: Github,
+      label: 'GitHub',
+      value: '@Mahad-007',
+      href: 'https://github.com/Mahad-007',
+      color: 'group-hover:bg-gray-800/15 group-hover:border-gray-800/40',
+      iconColor: 'text-gray-800 dark:text-white',
+      external: true,
+    },
+    {
+      Icon: Linkedin,
+      label: 'LinkedIn',
+      value: 'Mahad Khalid Ghafoor',
+      href: 'https://www.linkedin.com/in/mahad-khalid-ghafoor-001574240/',
+      color: 'group-hover:bg-blue-500/15 group-hover:border-blue-500/40',
+      iconColor: 'text-blue-600',
+      external: true,
+    },
+  ];
+
   return (
-    <section id="contact" className="py-20 relative overflow-hidden" ref={ref}>
+    <section id="contact" className="py-24 relative overflow-hidden" ref={ref}>
       {/* Background Effects */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-secondary/10 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/4 left-1/6 w-80 h-80 bg-primary/8 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 right-1/6 w-80 h-80 bg-accent/8 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-secondary/5 rounded-full blur-3xl"></div>
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
@@ -46,123 +77,91 @@ export const ContactSection = () => {
           animate={inView ? "visible" : "hidden"}
           className="max-w-6xl mx-auto"
         >
-          {/* Section Title */}
-          <motion.div variants={itemVariants} className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold gradient-text mb-4">
-              Let's Connect
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Ready to collaborate on exciting AI/ML projects? Let's build the future together.
-            </p>
-            <div className="w-20 h-1 bg-gradient-primary mx-auto rounded-full mt-6"></div>
-          </motion.div>
-
-          {/* Contact Info & Social Links */}
-          <div className="max-w-4xl mx-auto">
-            <motion.div variants={itemVariants} className="space-y-8">
-              {/* Contact Information */}
-              <div className="glass rounded-2xl p-8 hover:shadow-glow transition-all duration-500 text-center">
-                <h3 className="text-2xl font-bold mb-6">Get in Touch</h3>
-                
-                <div className="space-y-6">
-                  <a 
-                    href="mailto:mahadghafoor.07@gmail.com?subject=Hello from Portfolio&body=Hi Mahad, I came across your portfolio and would like to connect!"
-                    className="flex items-center justify-center space-x-4 p-4 rounded-xl hover:bg-primary/10 transition-all duration-300 group cursor-pointer"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      window.location.href = 'mailto:mahadghafoor.07@gmail.com?subject=Hello from Portfolio&body=Hi Mahad, I came across your portfolio and would like to connect!';
-                    }}
-                  >
-                    <div className="p-3 bg-primary/20 rounded-lg group-hover:bg-primary/30 transition-colors">
-                      <Mail className="w-6 h-6 text-primary" />
-                    </div>
-                    <div className="text-left">
-                      <p className="font-medium text-foreground group-hover:text-primary transition-colors">Email</p>
-                      <p className="text-muted-foreground group-hover:text-foreground transition-colors">mahadghafoor.07@gmail.com</p>
-                    </div>
-                  </a>
-                  
-                  <a 
-                    href="https://github.com/Mahad-007"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center space-x-4 p-4 rounded-xl hover:bg-gray-800/10 transition-all duration-300 group"
-                  >
-                    <div className="p-3 bg-gray-800/20 rounded-lg group-hover:bg-gray-800/30 transition-colors">
-                      <Github className="w-6 h-6 text-gray-800 dark:text-white" />
-                    </div>
-                    <div className="text-left">
-                      <p className="font-medium text-foreground group-hover:text-gray-800 dark:group-hover:text-white transition-colors">GitHub</p>
-                      <p className="text-muted-foreground group-hover:text-foreground transition-colors">@Mahad-007</p>
-                    </div>
-                  </a>
-                  
-                  <a 
-                    href="https://www.linkedin.com/in/mahad-khalid-ghafoor-001574240/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center space-x-4 p-4 rounded-xl hover:bg-accent/10 transition-all duration-300 group"
-                  >
-                    <div className="p-3 bg-accent/20 rounded-lg group-hover:bg-accent/30 transition-colors">
-                      <Linkedin className="w-6 h-6 text-accent" />
-                    </div>
-                    <div className="text-left">
-                      <p className="font-medium text-foreground group-hover:text-accent transition-colors">LinkedIn</p>
-                      <p className="text-muted-foreground group-hover:text-foreground transition-colors">Mahad Khalid Ghafoor</p>
-                    </div>
-                  </a>
+          {/* Main Card */}
+          <motion.div
+            variants={itemVariants}
+            className="glass rounded-3xl p-8 md:p-12 lg:p-16 hover:shadow-glow transition-all duration-500 border border-border/50"
+          >
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              {/* Left Side — Text */}
+              <motion.div variants={itemVariants} className="space-y-6">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
+                  <Sparkles className="w-4 h-4 text-primary" />
+                  <span className="text-sm font-medium text-primary">Open to Opportunities</span>
                 </div>
-              </div>
 
-              {/* Floating Social Icons */}
-              <div className="relative">
-                <div className="glass rounded-2xl p-8 text-center">
-                  <h3 className="text-xl font-bold mb-6">Connect with Me</h3>
-                  
-                  <div className="flex justify-center space-x-8">
-                    {[
-                      { 
-                        Icon: Github, 
-                        color: 'text-white hover:text-white', 
-                        bgColor: 'bg-gray-800 hover:bg-primary',
-                        href: 'https://github.com/Mahad-007',
-                        label: 'GitHub'
-                      },
-                      { 
-                        Icon: Linkedin, 
-                        color: 'text-foreground hover:text-white', 
-                        bgColor: 'bg-card hover:bg-blue-500',
-                        href: 'https://www.linkedin.com/in/mahad-khalid-ghafoor-001574240/',
-                        label: 'LinkedIn'
-                      },
-                      { 
-                        Icon: Mail, 
-                        color: 'text-foreground hover:text-white', 
-                        bgColor: 'bg-card hover:bg-green-500',
-                        href: 'mailto:mahadghafoor.07@gmail.com?subject=Hello from Portfolio&body=Hi Mahad, I came across your portfolio and would like to connect!',
-                        label: 'Email'
-                      },
-                    ].map(({ Icon, color, bgColor, href, label }, index) => (
-                      <a
-                        key={index}
-                        href={href}
-                        target={Icon === Mail ? undefined : "_blank"}
-                        rel={Icon === Mail ? undefined : "noopener noreferrer"}
-                        className={`social-icon p-4 ${bgColor} rounded-full transition-all duration-300 transform hover:scale-110 hover:shadow-glow group cursor-pointer border border-border/50 hover:border-primary/50`}
-                        title={label}
-                        onClick={Icon === Mail ? (e) => {
-                          e.preventDefault();
-                          window.location.href = 'mailto:mahadghafoor.07@gmail.com?subject=Hello from Portfolio&body=Hi Mahad, I came across your portfolio and would like to connect!';
-                        } : undefined}
-                      >
-                        <Icon className={`w-6 h-6 ${color} transition-colors`} />
-                      </a>
-                    ))}
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
+                  Let's Build<br />
+                  <span className="text-shimmer">Something Great</span>
+                </h2>
+
+                <p className="text-lg text-muted-foreground leading-relaxed max-w-md">
+                  Whether you have a project in mind, need an AI solution, or just want to connect — I'm always excited to hear about new ideas and collaborations.
+                </p>
+
+                <div className="flex items-center gap-6 pt-2">
+                  <div className="flex flex-col">
+                    <span className="text-2xl font-bold text-foreground">25+</span>
+                    <span className="text-sm text-muted-foreground">Projects Delivered</span>
+                  </div>
+                  <div className="w-px h-10 bg-border"></div>
+                  <div className="flex flex-col">
+                    <span className="text-2xl font-bold text-foreground">&lt; 24h</span>
+                    <span className="text-sm text-muted-foreground">Response Time</span>
+                  </div>
+                  <div className="w-px h-10 bg-border"></div>
+                  <div className="flex flex-col">
+                    <span className="text-2xl font-bold text-foreground">Global</span>
+                    <span className="text-sm text-muted-foreground">Availability</span>
                   </div>
                 </div>
-              </div>
-            </motion.div>
-          </div>
+              </motion.div>
+
+              {/* Right Side — Links */}
+              <motion.div variants={itemVariants} className="space-y-4">
+                {links.map(({ Icon, label, value, href, color, iconColor, external }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target={external ? "_blank" : undefined}
+                    rel={external ? "noopener noreferrer" : undefined}
+                    className={`group flex items-center justify-between p-5 rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-300 hover:shadow-lg ${color}`}
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="p-3 rounded-xl bg-secondary/50 group-hover:scale-110 transition-transform duration-300">
+                        <Icon className={`w-5 h-5 ${iconColor}`} />
+                      </div>
+                      <div>
+                        <p className="font-semibold text-foreground text-base">{label}</p>
+                        <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">{value}</p>
+                      </div>
+                    </div>
+                    <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" />
+                  </a>
+                ))}
+
+                {/* Quick Social Row */}
+                <div className="flex items-center gap-3 pt-4 justify-center lg:justify-start">
+                  <span className="text-sm text-muted-foreground mr-2">Follow me</span>
+                  {[
+                    { Icon: Github, href: 'https://github.com/Mahad-007', bg: 'hover:bg-gray-800 hover:text-white' },
+                    { Icon: Linkedin, href: 'https://www.linkedin.com/in/mahad-khalid-ghafoor-001574240/', bg: 'hover:bg-blue-600 hover:text-white' },
+                    { Icon: Mail, href: 'mailto:mahadghafoor.07@gmail.com', bg: 'hover:bg-primary hover:text-white' },
+                  ].map(({ Icon, href, bg }, i) => (
+                    <a
+                      key={i}
+                      href={href}
+                      target={Icon === Mail ? undefined : "_blank"}
+                      rel={Icon === Mail ? undefined : "noopener noreferrer"}
+                      className={`p-2.5 rounded-full border border-border/50 bg-card/50 text-muted-foreground transition-all duration-300 hover:scale-110 hover:shadow-md ${bg}`}
+                    >
+                      <Icon className="w-4 h-4" />
+                    </a>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>
