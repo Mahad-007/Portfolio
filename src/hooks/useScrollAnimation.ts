@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, RefObject } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { useScroll, useTransform, MotionValue } from 'framer-motion';
 
 export const useScrollAnimation = (threshold = 0.1) => {
   const { ref, inView } = useInView({
@@ -29,17 +30,23 @@ export const useScrollProgress = () => {
   return scrollProgress;
 };
 
-export const useParallax = (speed = 0.5) => {
-  const [offsetY, setOffsetY] = useState(0);
+/**
+ * GPU-accelerated parallax hook using Framer Motion.
+ * Returns MotionValues for different depth layers — no React state re-renders.
+ * Attach to decorative/background elements only.
+ */
+export const useSectionParallax = (ref: RefObject<HTMLElement>) => {
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setOffsetY(window.pageYOffset * speed);
-    };
+  // Different speed layers for depth illusion
+  const slow = useTransform(scrollYProgress, [0, 1], [80, -80]);
+  const medium = useTransform(scrollYProgress, [0, 1], [120, -120]);
+  const fast = useTransform(scrollYProgress, [0, 1], [180, -180]);
+  const reverse = useTransform(scrollYProgress, [0, 1], [-60, 60]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [speed]);
-
-  return offsetY;
+  return { scrollYProgress, slow, medium, fast, reverse, opacity };
 };

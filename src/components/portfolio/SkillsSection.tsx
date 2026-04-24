@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform, AnimatePresence, LayoutGroup } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Brain, Code2, Cpu, Database, Smartphone, Link2 } from 'lucide-react';
 import {
   SiPython,
@@ -29,7 +29,20 @@ export const SkillsSection = () => {
     triggerOnce: true,
   });
 
+  const sectionRef = useRef(null);
   const [selectedCategory, setSelectedCategory] = useState<CategoryKey>('all');
+
+  // Parallax for background decorative elements
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+
+  const orbY1 = useTransform(scrollYProgress, [0, 1], [100, -120]);
+  const orbY2 = useTransform(scrollYProgress, [0, 1], [60, -150]);
+  const orbY3 = useTransform(scrollYProgress, [0, 1], [140, -80]);
+  const floatX1 = useTransform(scrollYProgress, [0, 1], [-30, 30]);
+  const floatX2 = useTransform(scrollYProgress, [0, 1], [20, -20]);
 
   const categories = [
     {
@@ -104,8 +117,37 @@ export const SkillsSection = () => {
   };
 
   return (
-    <section id="skills" className="py-20 relative ai-bg" ref={ref}>
-      <div className="container mx-auto px-4 md:px-6">
+    <section id="skills" className="py-20 relative ai-bg overflow-hidden" ref={sectionRef}>
+      {/* Parallax Background Decorations */}
+      <div className="absolute inset-0 pointer-events-none">
+        <motion.div
+          className="absolute top-10 -right-10 w-80 h-80 bg-accent/4 rounded-full blur-3xl will-change-transform"
+          style={{ y: orbY1, x: floatX1 }}
+        />
+        <motion.div
+          className="absolute bottom-20 -left-16 w-72 h-72 bg-primary/5 rounded-full blur-3xl will-change-transform"
+          style={{ y: orbY2, x: floatX2 }}
+        />
+        <motion.div
+          className="absolute top-1/2 right-[30%] w-48 h-48 bg-accent/3 rounded-full blur-2xl will-change-transform"
+          style={{ y: orbY3 }}
+        />
+        {/* Geometric accents */}
+        <motion.div
+          className="absolute top-[18%] left-[6%] w-3 h-3 rounded-full bg-primary/15 will-change-transform"
+          style={{ y: orbY2 }}
+        />
+        <motion.div
+          className="absolute bottom-[20%] right-[5%] w-2 h-2 rounded-full bg-accent/20 will-change-transform"
+          style={{ y: orbY1 }}
+        />
+        <motion.div
+          className="absolute top-[60%] left-[50%] w-1.5 h-1.5 rounded-full bg-primary/20 will-change-transform"
+          style={{ y: orbY3 }}
+        />
+      </div>
+
+      <div className="container mx-auto px-4 md:px-6 relative z-10" ref={ref}>
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <motion.div
@@ -185,28 +227,37 @@ export const SkillsSection = () => {
                 Core skills across AI/ML, full-stack development, and Web3. Click a category to filter.
               </p>
 
-              {/* Technology Grid */}
-              <div className="grid grid-cols-2 gap-3">
-                {filteredTechnologies.map((tech, index) => {
-                  const TechIcon = tech.icon;
+              {/* Technology Grid — layout animation for smooth filter reflow */}
+              <LayoutGroup>
+                <div className="grid grid-cols-2 gap-3">
+                  <AnimatePresence mode="popLayout">
+                    {filteredTechnologies.map((tech, index) => {
+                      const TechIcon = tech.icon;
 
-                  return (
-                    <motion.div
-                      key={tech.name}
-                      variants={techVariants}
-                      initial="hidden"
-                      animate="visible"
-                      transition={{ delay: index * 0.05 }}
-                      className="flex items-center gap-3 p-3 rounded-lg bg-background/50 border border-border/50 hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 group"
-                    >
-                      <TechIcon className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
-                      <span className="text-sm font-medium text-foreground">
-                        {tech.name}
-                      </span>
-                    </motion.div>
-                  );
-                })}
-              </div>
+                      return (
+                        <motion.div
+                          key={tech.name}
+                          layout
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.8 }}
+                          transition={{
+                            opacity: { duration: 0.2 },
+                            scale: { duration: 0.3, type: "spring", stiffness: 300, damping: 25 },
+                            layout: { type: "spring", stiffness: 300, damping: 30 },
+                          }}
+                          className="flex items-center gap-3 p-3 rounded-lg bg-background/50 border border-border/50 hover:border-primary/50 hover:bg-primary/5 transition-colors duration-300 group"
+                        >
+                          <TechIcon className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+                          <span className="text-sm font-medium text-foreground">
+                            {tech.name}
+                          </span>
+                        </motion.div>
+                      );
+                    })}
+                  </AnimatePresence>
+                </div>
+              </LayoutGroup>
 
               {/* Show all button */}
               {selectedCategory !== 'all' && (

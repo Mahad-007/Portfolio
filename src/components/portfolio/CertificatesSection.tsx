@@ -1,13 +1,47 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Award, FileText, Star, Trophy } from "lucide-react";
 
+/** 3D tilt wrapper for certificate cards */
+const TiltCard = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [10, -10]), { stiffness: 300, damping: 30 });
+  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-10, 10]), { stiffness: 300, damping: 30 });
+
+  const handleMouse = (e: React.MouseEvent) => {
+    const rect = ref.current?.getBoundingClientRect();
+    if (!rect) return;
+    x.set((e.clientX - rect.left) / rect.width - 0.5);
+    y.set((e.clientY - rect.top) / rect.height - 0.5);
+  };
+  const handleLeave = () => { x.set(0); y.set(0); };
+
+  return (
+    <motion.div ref={ref} style={{ rotateX, rotateY, transformStyle: "preserve-3d" }} onMouseMove={handleMouse} onMouseLeave={handleLeave} className={className}>
+      {children}
+    </motion.div>
+  );
+};
+
 export const CertificatesSection = () => {
   const ref = useRef(null);
+  const sectionRef = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
+
+  // Parallax for background decorative elements
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+
+  const orbY1 = useTransform(scrollYProgress, [0, 1], [90, -90]);
+  const orbY2 = useTransform(scrollYProgress, [0, 1], [60, -130]);
+  const floatX = useTransform(scrollYProgress, [0, 1], [-15, 20]);
 
   const certificates = [
     {
@@ -66,8 +100,28 @@ export const CertificatesSection = () => {
   };
 
   return (
-    <section id="certificates" className="py-20 px-4 ai-bg">
-      <div className="max-w-6xl mx-auto">
+    <section id="certificates" className="py-20 px-4 ai-bg relative overflow-hidden" ref={sectionRef}>
+      {/* Parallax Background Decorations */}
+      <div className="absolute inset-0 pointer-events-none">
+        <motion.div
+          className="absolute -top-10 -left-10 w-72 h-72 bg-accent/4 rounded-full blur-3xl will-change-transform"
+          style={{ y: orbY1, x: floatX }}
+        />
+        <motion.div
+          className="absolute bottom-10 right-[5%] w-64 h-64 bg-primary/5 rounded-full blur-3xl will-change-transform"
+          style={{ y: orbY2 }}
+        />
+        <motion.div
+          className="absolute top-[25%] right-[15%] w-2 h-2 rounded-full bg-primary/20 will-change-transform"
+          style={{ y: orbY2 }}
+        />
+        <motion.div
+          className="absolute bottom-[20%] left-[10%] w-1.5 h-1.5 rounded-full bg-accent/25 will-change-transform"
+          style={{ y: orbY1 }}
+        />
+      </div>
+
+      <div className="max-w-6xl mx-auto relative z-10">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 50 }}
@@ -106,14 +160,11 @@ export const CertificatesSection = () => {
               <motion.div
                 key={cert.title}
                 variants={itemVariants}
-                whileHover={{ 
-                  scale: 1.02, 
-                  y: -5,
-                  transition: { type: "spring", stiffness: 300 }
-                }}
                 className="group"
+                style={{ perspective: 1000 }}
               >
-                <Card className="ai-card group-hover:shadow-2xl group-hover:shadow-primary/10 h-full flex flex-col hover-lift hover-glow">
+                <TiltCard className="h-full">
+                <Card className="ai-card group-hover:shadow-2xl group-hover:shadow-primary/10 h-full flex flex-col hover-glow transition-shadow duration-300">
                   <CardHeader className="pb-4">
                     <div className="flex flex-col gap-4">
                       <div className="flex items-start gap-3">
@@ -162,6 +213,7 @@ export const CertificatesSection = () => {
                     </div>
                   </CardContent>
                 </Card>
+                </TiltCard>
               </motion.div>
             );
           })}

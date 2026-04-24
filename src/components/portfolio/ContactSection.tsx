@@ -1,13 +1,50 @@
-
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { useRef } from 'react';
 import { Github, Linkedin, Mail, ArrowUpRight, Sparkles } from 'lucide-react';
+
+/** Magnetic hover — element subtly follows the cursor when hovered. */
+const MagneticWrap = ({ children, className = "", intensity = 0.3 }: { children: React.ReactNode; className?: string; intensity?: number }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const springX = useSpring(x, { stiffness: 200, damping: 20 });
+  const springY = useSpring(y, { stiffness: 200, damping: 20 });
+
+  const handleMouse = (e: React.MouseEvent) => {
+    const rect = ref.current?.getBoundingClientRect();
+    if (!rect) return;
+    x.set((e.clientX - rect.left - rect.width / 2) * intensity);
+    y.set((e.clientY - rect.top - rect.height / 2) * intensity);
+  };
+  const handleLeave = () => { x.set(0); y.set(0); };
+
+  return (
+    <motion.div ref={ref} style={{ x: springX, y: springY }} onMouseMove={handleMouse} onMouseLeave={handleLeave} className={className}>
+      {children}
+    </motion.div>
+  );
+};
 
 export const ContactSection = () => {
   const { ref, inView } = useInView({
     threshold: 0.2,
     triggerOnce: true,
   });
+
+  const sectionRef = useRef(null);
+
+  // Parallax for background blobs
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+
+  const blobY1 = useTransform(scrollYProgress, [0, 1], [100, -80]);
+  const blobY2 = useTransform(scrollYProgress, [0, 1], [60, -120]);
+  const blobY3 = useTransform(scrollYProgress, [0, 1], [130, -50]);
+  const blobX1 = useTransform(scrollYProgress, [0, 1], [-20, 30]);
+  const blobX2 = useTransform(scrollYProgress, [0, 1], [20, -25]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -62,15 +99,33 @@ export const ContactSection = () => {
   ];
 
   return (
-    <section id="contact" className="py-24 relative overflow-hidden" ref={ref}>
-      {/* Background Effects */}
+    <section id="contact" className="py-24 relative overflow-hidden" ref={sectionRef}>
+      {/* Background Blobs — now parallax-driven */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/6 w-80 h-80 bg-primary/8 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/6 w-80 h-80 bg-accent/8 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-secondary/5 rounded-full blur-3xl"></div>
+        <motion.div
+          className="absolute top-1/4 left-[15%] w-80 h-80 bg-primary/8 rounded-full blur-3xl will-change-transform"
+          style={{ y: blobY1, x: blobX1 }}
+        />
+        <motion.div
+          className="absolute bottom-1/4 right-[15%] w-80 h-80 bg-accent/8 rounded-full blur-3xl will-change-transform"
+          style={{ y: blobY2, x: blobX2 }}
+        />
+        <motion.div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 w-96 h-96 bg-secondary/5 rounded-full blur-3xl will-change-transform"
+          style={{ y: blobY3 }}
+        />
+        {/* Subtle depth dots */}
+        <motion.div
+          className="absolute top-[20%] right-[10%] w-2 h-2 rounded-full bg-primary/20 will-change-transform"
+          style={{ y: blobY2 }}
+        />
+        <motion.div
+          className="absolute bottom-[30%] left-[5%] w-1.5 h-1.5 rounded-full bg-accent/25 will-change-transform"
+          style={{ y: blobY1 }}
+        />
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-6 relative z-10" ref={ref}>
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -120,8 +175,8 @@ export const ContactSection = () => {
               {/* Right Side — Links */}
               <motion.div variants={itemVariants} className="space-y-4">
                 {links.map(({ Icon, label, value, href, color, iconColor, external }) => (
+                  <MagneticWrap key={label} intensity={0.15}>
                   <a
-                    key={label}
                     href={href}
                     target={external ? "_blank" : undefined}
                     rel={external ? "noopener noreferrer" : undefined}
@@ -143,6 +198,7 @@ export const ContactSection = () => {
                     </div>
                     <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" />
                   </a>
+                  </MagneticWrap>
                 ))}
 
                 {/* Quick Social Row */}

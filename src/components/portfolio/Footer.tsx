@@ -1,10 +1,34 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import { Brain, Cpu, Zap } from "lucide-react";
 
 export const Footer = () => {
+  const footerRef = useRef(null);
+
+  // Subtle parallax for the footer background
+  const { scrollYProgress } = useScroll({
+    target: footerRef,
+    offset: ["start end", "end end"]
+  });
+
+  const bgY = useTransform(scrollYProgress, [0, 1], [40, 0]);
+  const orbY = useTransform(scrollYProgress, [0, 1], [30, -20]);
+
   return (
-    <footer className="py-12 px-4 border-t border-border/50 bg-background">
-      <div className="max-w-6xl mx-auto">
+    <footer className="py-12 px-4 border-t border-border/50 bg-background relative overflow-hidden" ref={footerRef}>
+      {/* Subtle parallax background accent */}
+      <div className="absolute inset-0 pointer-events-none">
+        <motion.div
+          className="absolute -bottom-10 left-1/4 w-64 h-64 bg-primary/3 rounded-full blur-3xl will-change-transform"
+          style={{ y: orbY }}
+        />
+        <motion.div
+          className="absolute -bottom-10 right-1/4 w-48 h-48 bg-accent/3 rounded-full blur-3xl will-change-transform"
+          style={{ y: bgY }}
+        />
+      </div>
+
+      <div className="max-w-6xl mx-auto relative z-10">
         <motion.div
           className="text-center space-y-6"
           initial={{ opacity: 0, y: 20 }}

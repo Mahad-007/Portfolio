@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ChevronDown, Sparkles, Code2, Zap, ArrowRight, Github, Linkedin, Mail } from 'lucide-react';
+import { ChevronDown, ArrowRight, Github, Linkedin, Mail } from 'lucide-react';
 import { useRef } from 'react';
 import { Button } from '@/components/ui/button';
 
@@ -10,10 +10,22 @@ export const HeroSectionNew = () => {
     offset: ["start start", "end start"]
   });
 
-  // Parallax transformations
+  // Content parallax
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.5, 0]);
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
+
+  // Multi-layer background parallax — different speeds for depth
+  const orbY1 = useTransform(scrollYProgress, [0, 1], [0, -200]);   // slow orb
+  const orbY2 = useTransform(scrollYProgress, [0, 1], [0, -320]);   // faster orb
+  const orbY3 = useTransform(scrollYProgress, [0, 1], [0, -140]);   // slowest orb
+  const gridY = useTransform(scrollYProgress, [0, 1], [0, -80]);    // grid moves very slowly
+  const orbScale1 = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.15, 0.9]);
+  const orbScale2 = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.25, 0.85]);
+  const orbOpacity = useTransform(scrollYProgress, [0, 0.7, 1], [1, 0.6, 0]);
+
+  // Scroll indicator fades away faster
+  const scrollIndicatorOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
 
   const scrollToProjects = () => {
     document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
@@ -29,15 +41,15 @@ export const HeroSectionNew = () => {
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-background via-background to-background-secondary"
     >
-      {/* Animated Background Elements */}
+      {/* Animated Background Elements with Multi-Layer Parallax */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Floating Gradient Orbs */}
+        {/* Floating Gradient Orb 1 — Slow Layer */}
         <motion.div
-          className="absolute top-20 left-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl"
+          className="absolute top-20 left-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl will-change-transform"
+          style={{ y: orbY1, scale: orbScale1, opacity: orbOpacity }}
           animate={{
             x: [0, 100, 0],
             y: [0, -50, 0],
-            scale: [1, 1.2, 1],
           }}
           transition={{
             duration: 20,
@@ -45,12 +57,13 @@ export const HeroSectionNew = () => {
             ease: "easeInOut"
           }}
         />
+
+        {/* Floating Gradient Orb 2 — Faster Layer */}
         <motion.div
-          className="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl"
+          className="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl will-change-transform"
+          style={{ y: orbY2, scale: orbScale2, opacity: orbOpacity }}
           animate={{
             x: [0, -80, 0],
-            y: [0, 60, 0],
-            scale: [1, 1.3, 1],
           }}
           transition={{
             duration: 25,
@@ -59,11 +72,42 @@ export const HeroSectionNew = () => {
           }}
         />
 
-        {/* Grid Pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:64px_64px]" />
+        {/* Floating Gradient Orb 3 — Subtle Accent (new) */}
+        <motion.div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl will-change-transform"
+          style={{ y: orbY3, opacity: orbOpacity }}
+          animate={{
+            scale: [1, 1.1, 1],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+
+        {/* Grid Pattern — Very Slow Parallax */}
+        <motion.div
+          className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:64px_64px] will-change-transform"
+          style={{ y: gridY }}
+        />
+
+        {/* Decorative Dots — Parallax depth markers */}
+        <motion.div
+          className="absolute top-[15%] right-[20%] w-2 h-2 rounded-full bg-primary/30 will-change-transform"
+          style={{ y: orbY2 }}
+        />
+        <motion.div
+          className="absolute top-[70%] left-[15%] w-3 h-3 rounded-full bg-accent/20 will-change-transform"
+          style={{ y: orbY1 }}
+        />
+        <motion.div
+          className="absolute top-[40%] right-[10%] w-1.5 h-1.5 rounded-full bg-primary/25 will-change-transform"
+          style={{ y: orbY3 }}
+        />
       </div>
 
-      {/* Main Content */}
+      {/* Main Content — Parallax on content container */}
       <motion.div
         style={{ y, opacity, scale }}
         className="relative z-10 max-w-6xl mx-auto px-4 text-center"
@@ -241,11 +285,9 @@ export const HeroSectionNew = () => {
         </motion.div>
       </motion.div>
 
-      {/* Scroll Indicator */}
+      {/* Scroll Indicator — Fades out quickly on scroll */}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1.5 }}
+        style={{ opacity: scrollIndicatorOpacity }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2"
       >
         <motion.div

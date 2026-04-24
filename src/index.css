@@ -817,4 +817,14 @@
       background-position: 200% 0;
     }
   }
+
+  /* Scroll-based marquee — hidden scrollbar */
+  .marquee-scroll-container {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+  }
+
+  .marquee-scroll-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+  }
 }

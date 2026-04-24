@@ -1,13 +1,44 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion, useScroll, useTransform, useMotionValue, useSpring, useInView as useFramerInView } from "framer-motion";
+import { useRef, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Brain, Cpu, Database, Zap, Bot, TrendingUp, Code, Target, MessageSquare } from "lucide-react";
+import { Brain, Cpu, Database, Zap, Bot, TrendingUp, Code, MessageSquare } from "lucide-react";
+
+/** Animated counter — springs from 0 to target when scrolled into view. */
+const AnimatedCounter = ({ target, suffix = "" }: { target: number; suffix: string }) => {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useFramerInView(ref, { once: true, amount: 0.5 });
+  const motionVal = useMotionValue(0);
+  const spring = useSpring(motionVal, { stiffness: 60, damping: 20, mass: 1 });
+
+  useEffect(() => {
+    if (isInView) motionVal.set(target);
+  }, [isInView, target, motionVal]);
+
+  useEffect(() => {
+    const unsubscribe = spring.on("change", (v) => {
+      if (ref.current) ref.current.textContent = `${Math.round(v)}${suffix}`;
+    });
+    return unsubscribe;
+  }, [spring, suffix]);
+
+  return <span ref={ref}>0{suffix}</span>;
+};
 
 export const AboutSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const sectionRef = useRef(null);
+  const isInView = useFramerInView(ref, { once: true, amount: 0.3 });
+
+  // Parallax for background decorative elements
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+
+  const orbY1 = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  const orbY2 = useTransform(scrollYProgress, [0, 1], [60, -140]);
+  const orbY3 = useTransform(scrollYProgress, [0, 1], [140, -60]);
+  const floatX = useTransform(scrollYProgress, [0, 1], [-20, 20]);
 
   const expertise = [
     { name: "Machine Learning", icon: Brain, color: "text-primary" },
@@ -22,15 +53,24 @@ export const AboutSection = () => {
   ];
 
   const stats = [
-    { label: "AI Projects", value: "25+", icon: Brain },
-    { label: "ML Models", value: "50+", icon: Cpu },
-    { label: "Technologies", value: "25+", icon: Zap },
-    { label: "AI Agents", value: "10+", icon: Bot }
+    { label: "AI Projects", value: 25, suffix: "+", icon: Brain },
+    { label: "ML Models", value: 50, suffix: "+", icon: Cpu },
+    { label: "Technologies", value: 25, suffix: "+", icon: Zap },
+    { label: "AI Agents", value: 10, suffix: "+", icon: Bot },
   ];
 
   return (
-    <section id="about" className="py-20 px-4 ai-bg">
-      <div className="max-w-7xl mx-auto">
+    <section id="about" className="py-20 px-4 ai-bg relative overflow-hidden" ref={sectionRef}>
+      {/* Parallax Background Decorations */}
+      <div className="absolute inset-0 pointer-events-none">
+        <motion.div className="absolute -top-20 -right-20 w-80 h-80 bg-primary/5 rounded-full blur-3xl will-change-transform" style={{ y: orbY1, x: floatX }} />
+        <motion.div className="absolute bottom-10 -left-20 w-72 h-72 bg-accent/5 rounded-full blur-3xl will-change-transform" style={{ y: orbY2 }} />
+        <motion.div className="absolute top-1/3 right-1/4 w-40 h-40 bg-primary/3 rounded-full blur-2xl will-change-transform" style={{ y: orbY3 }} />
+        <motion.div className="absolute top-[20%] left-[10%] w-2 h-2 rounded-full bg-primary/20 will-change-transform" style={{ y: orbY2 }} />
+        <motion.div className="absolute bottom-[30%] right-[8%] w-1.5 h-1.5 rounded-full bg-accent/25 will-change-transform" style={{ y: orbY1 }} />
+      </div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 50 }}
@@ -55,7 +95,6 @@ export const AboutSection = () => {
               <Cpu className="w-8 h-8 text-accent" />
               <Database className="w-8 h-8 text-primary" />
             </motion.div>
-            
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
               About <span className="text-shimmer">Me</span>
             </h2>
@@ -75,21 +114,19 @@ export const AboutSection = () => {
             >
               <div className="space-y-4">
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  I'm a dedicated <span className="text-primary font-semibold">AI & Machine Learning Engineer</span> with a passion for 
-                  creating intelligent systems that solve real-world problems. My expertise spans across the entire ML pipeline, 
+                  I'm a dedicated <span className="text-primary font-semibold">AI & Machine Learning Engineer</span> with a passion for
+                  creating intelligent systems that solve real-world problems. My expertise spans across the entire ML pipeline,
                   from data preprocessing and model development to deployment and monitoring.
                 </p>
-                
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  With a strong foundation in <span className="text-accent font-semibold">Python</span> and deep learning frameworks like 
-                  <span className="text-primary font-semibold"> TensorFlow</span> and <span className="text-accent font-semibold">PyTorch</span>, 
+                  With a strong foundation in <span className="text-accent font-semibold">Python</span> and deep learning frameworks like
+                  <span className="text-primary font-semibold"> TensorFlow</span> and <span className="text-accent font-semibold">PyTorch</span>,
                   I specialize in building scalable AI solutions that drive business value and innovation.
                 </p>
-                
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  My journey includes developing <span className="text-primary font-semibold">trading algorithms</span>, 
-                  <span className="text-accent font-semibold"> NLP applications</span>, 
-                  <span className="text-primary font-semibold"> computer vision systems</span>, and 
+                  My journey includes developing <span className="text-primary font-semibold">trading algorithms</span>,
+                  <span className="text-accent font-semibold"> NLP applications</span>,
+                  <span className="text-primary font-semibold"> computer vision systems</span>, and
                   <span className="text-accent font-semibold"> generative AI models</span> that push the boundaries of what's possible.
                 </p>
               </div>
@@ -132,9 +169,9 @@ export const AboutSection = () => {
             </motion.div>
           </div>
 
-          {/* Stats Section */}
+          {/* Stats Section — Animated Counters */}
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+            className="grid grid-cols-2 lg:grid-cols-4 gap-6"
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 1.0 }}
@@ -148,10 +185,12 @@ export const AboutSection = () => {
                   whileHover={{ scale: 1.05, y: -5 }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.6, delay: 1.2 + index * 0.1 }}
+                  transition={{ duration: 0.6, delay: 1.2 + index * 0.15 }}
                 >
                   <IconComponent className="w-8 h-8 text-primary mx-auto mb-3" />
-                  <div className="text-3xl font-bold text-foreground mb-1">{stat.value}</div>
+                  <div className="text-3xl font-bold text-foreground mb-1">
+                    <AnimatedCounter target={stat.value} suffix={stat.suffix} />
+                  </div>
                   <div className="text-sm text-muted-foreground">{stat.label}</div>
                 </motion.div>
               );
