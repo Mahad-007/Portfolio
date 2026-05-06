@@ -4,7 +4,7 @@ import { useRef, useState, useCallback, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Bot, Brain, Users, Activity, GraduationCap, Globe, Cpu, ChevronLeft, ChevronRight, TrendingUp } from "lucide-react";
+import { ExternalLink, Bot, Brain, Users, Database, GraduationCap, Globe, Cpu, ChevronLeft, ChevronRight, TrendingUp } from "lucide-react";
 import {
   SiPython,
   SiTensorflow,
@@ -222,15 +222,15 @@ export const ProjectsSection = () => {
       gradient: "",
     },
     {
-      title: "LynxFlow Health",
-      description: "Remote patient treatment monitoring platform — track medication adherence, predict risks early, improve patient outcomes. Real-time dose monitoring, analytics dashboard, and IoT device integration with 94% adherence rates.",
-      tech: ["React", "Next.js", "Node.js", "Healthcare IoT"],
-      category: "Healthcare Tech",
-      icon: Activity,
+      title: "Inflectiv AI",
+      description: "Decentralized data infrastructure platform — transforms raw data into structured, tokenized intelligence assets for AI agents. Intelligence marketplace, dataset tokenization via bonding curves, and custom AI agent deployment on the Sui blockchain.",
+      tech: ["React", "Next.js", "TypeScript", "Node.js", "Sui"],
+      category: "Data Infrastructure / Web3",
+      icon: Database,
       color: "text-orange-500",
-      features: ["Remote Monitoring", "Medication Tracking", "Analytics Dashboard", "IoT Integration"],
-      images: ["/projects/lynxflow-1.png", "/projects/lynxflow-2.png", "/projects/lynxflow-3.png"],
-      link: "https://lynxflowhealth.com/",
+      features: ["Intelligence Marketplace", "AI Agent Deployment", "Dataset Tokenization", "Decentralized Storage"],
+      images: ["/projects/inflectiv-1.png", "/projects/inflectiv-2.png", "/projects/inflectiv-3.png", "/projects/inflectiv-4.png"],
+      link: "https://inflectiv.ai/",
       gradient: "",
     },
     {
